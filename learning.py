@@ -160,3 +160,141 @@ print(greet) # HelloHelloHello
 my_var = 5
 my_var += 1
 print(my_var) # 6
+
+# BOOLEANS AND CONDITIONALS
+
+print(3 > 4) # False
+print(3 < 4) # True
+print(3 == 4) # False
+print(4 == 4) # True
+print(3 != 4) # True
+print(3 >= 4) # False
+print(3 <= 4) # True
+
+AGE = 12
+if AGE >= 18:
+    print("You are an adult")
+elif AGE >= 13:
+    print("You are still a lil baby")
+else:
+    print("wait you are an actual baby")
+
+# in Python, code blocks are determined by indentation (usually 4 spaces)
+#if age >= 18:
+#print('You are an adult') # IndentationError
+
+# truthy falsy values
+print(bool(False)) # False
+print(bool(0))  # False
+print(bool('')) # False
+
+print(bool(True)) # True
+print(bool(1)) # True
+print(bool('Hello')) # True
+
+# boolean operators
+
+is_citizen = True
+AGE = 25
+print(is_citizen and AGE) # 25 / similar to how && works in JS
+if is_citizen and AGE >= 18:
+    print('You are eligible to vote') # You are eligible to vote
+else:
+    print('You are not eligible to vote')
+
+is_employed = False
+print(AGE or is_employed) # 25 / similar to how || works in JS
+
+is_student = True
+if AGE < 18 or is_student:
+    print('You are eligible for a student discount') # You are eligible for a student discount
+else:
+    print('You are not eligible for a student discount')
+
+# not operator same as ! in JS
+
+is_admin = False
+if not is_admin:
+    print('Access denied for non-administrators.') # Access denied for non-administrators.
+else:
+    print('Welcome, Administrator!')
+
+
+# SCOPE AND FUNCTIONS
+
+name = input('What is your name?') # User types "xdd" and presses Enter  
+print('Hello', name) # Output: Hello xdd
+
+print(int(3.14)) # 3
+print(int('42')) # 42
+print(int(True)) # 1
+print(int(False)) # 0 
+
+# need indentation similar to if statement blocks
+def hello():
+    print('Hello World Function')
+hello()
+
+def calculate_sum(a, b):
+    print(a + b)
+my_sum = calculate_sum(3, 1) # 4
+print(my_sum) # None / with no return statement, a function return None by default
+# calculate_sum() # TypeError: calculate_sum() missing 2 required positional arguments: 'a' and 'b'
+
+def proper_calculate_sum(a, b):
+    return a + b
+my_sum = proper_calculate_sum(3, 1) # 4
+print(my_sum) # 4
+
+# local scope
+def my_func():
+    my_function_var = 10
+    print(my_function_var)
+my_func() # 10
+# print(my_function_var) # NameError: name 'my_var' is not defined
+
+# enclosing scope
+def outer_func():
+    msg = 'Hello there!'
+    # print(res) # NameError: name 'res' is not defined
+    def inner_func():
+        res= "local scope var"
+        print(msg)
+
+    inner_func()
+
+outer_func() # Hello there!
+
+def outer_func_2():
+    res = ""  # Declare res in the enclosing scope
+
+    def inner_func():
+        nonlocal res  # Allow modification of an enclosing variable
+        res = 'How are you?'
+    inner_func()
+    print(res)  # Now res is accessible and modified
+
+outer_func_2()
+
+# global scope
+my_global_var = 100
+
+def show_var():
+    global my_made_global_var
+    my_made_global_var = 7
+    print(my_global_var, my_made_global_var)
+
+show_var() # 100 7
+print(my_global_var) # 100
+
+a_global_var = 10
+
+def change_var():
+    global a_global_var  # Allows modification of a global variable
+    a_global_var = 20
+
+change_var()
+print(a_global_var)  # now modified globally to 20
+
+# built in scope
+# functions like str() type() isinstance() that are available everywhere
