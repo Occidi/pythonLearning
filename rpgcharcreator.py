@@ -20,23 +20,13 @@ def create_character(character_name, strength, intelligence, charisma):
     if (strength + intelligence +  charisma) != 7:
         return "The character should start with 7 points"
 
-    fulldot_st = full_dot
-    fulldot_st *= strength
+    fulldot_st = full_dot * strength
+    fulldot_int = full_dot * intelligence
+    fulldot_cha = full_dot * charisma
 
-    fulldot_int = full_dot
-    fulldot_int *= intelligence
-
-    fulldot_cha = full_dot
-    fulldot_cha *= charisma
-
-    emptydots_st = empty_dot
-    emptydots_st *= 10 - strength
-
-    emptydots_int = empty_dot
-    emptydots_int *= 10 - intelligence
-
-    emptydots_cha = empty_dot
-    emptydots_cha *= 10 - charisma
+    emptydots_st = empty_dot * (10 - strength)
+    emptydots_int = empty_dot * (10 - intelligence)
+    emptydots_cha = empty_dot * (10 - charisma)
 
     character = character_name + "\nSTR " + fulldot_st + emptydots_st + "\nINT " + fulldot_int + emptydots_int +  "\nCHA " + fulldot_cha + emptydots_cha
 
