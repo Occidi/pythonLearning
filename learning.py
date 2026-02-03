@@ -298,3 +298,246 @@ print(a_global_var)  # now modified globally to 20
 
 # built in scope
 # functions like str() type() isinstance() that are available everywhere
+
+# LOOPS AND SEQUENCES
+
+# Lists
+
+cities = ['Los Angeles', 'London', 'Tokyo']
+cities[0] # 'Los Angeles'
+cities[-1] # 'Tokyo'
+name = "test"
+namelist = list(name) # ['t', 'e', 's', 't']
+len(namelist) # 4
+namelist[0] = "a" # ['a', 'e', 's', 't']
+del namelist[0] # ['e', 's', 't']
+"s" in namelist # True
+
+developer = ['Alice', 34, 'Rust Developer']
+name, age, job = developer # similar to js destructuring
+name, *rest = developer # name = "Alice" and rest = [34, 'Rust Developer']]
+
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)
+somenumbers = [7,8]
+numbers.extend(somenumbers) # [1, 2, 3, 4, 5, 6, 7, 8 ]
+numbers.insert(2, 2.5) # [1, 2, 2.5, 3, 4, 5, 6, 7, 8 ]
+numbers.remove(2.5) # [1, 2, 3, 4, 5, 6, 7, 8 ] // this will only remove the first occurence
+numbers.pop(0) # 1 is removed
+numbers.clear() # []
+numbers = [19, 2, 35, 1, 67, 41]
+sorted_numbers = sorted(numbers) # [1, 2, 19, 35, 41, 67]
+numbers.sort() # [1, 2, 19, 35, 41, 67] same thing but mutate the list directly
+numbers.reverse() # [67, 41,35,19, 2,1]
+numbers.index(19) # 3
+
+# Tuples
+# data type used to create an ordered sequence of values. Tuples can contain a mixed set of data types like this:
+# while lists are a mutable data type, tuples are immutable
+
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.count('Rust') # 2
+sorted(programming_languages, key=len) # ['C++', 'Rust', 'Java', 'Rust', 'Python', 'Python']
+
+# Loops
+
+for language in programming_languages:
+    if language == 'Python':
+        break
+    if language == 'Java':
+        continue
+    print(language)
+
+for char in 'code':
+    print(char)
+
+final = 3
+guess = 0
+
+while guess != final:
+    guess += 1
+
+# Range
+# used to generate a sequence of integers
+# range(start, stop, step) // stop is required, only accepts integers
+for num in range(3):
+    print(num) # prints 0 -> 1 -> 2 as 3 is the required stop arg which is noninclusive from a 0 starting range
+
+# a list of even integers between 2 and 10:
+numbers = list(range(2, 11, 2))
+print(numbers) # [2, 4, 6, 8, 10]
+
+#Enumerate 
+# keeps track of the index for an iterable and returns an enumerate object.
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+list(enumerate(languages)) # [(0, 'Spanish'), (1, 'English'), (2, 'Russian'), (3, 'Chinese')]
+
+for index, language in enumerate(languages):
+    print(f'Index {index} and language {language}') # Index 0 and language Spanish etc
+
+# if you need to iterate over multiple iterables in parallel use zip() which combines lists into pairs of elements and returns an iterator of tuples.
+developers = ['Naomi', 'Dario', 'Jessica', 'Tom']
+ids = [1, 2, 3, 4]
+list(zip(developers, ids)) # [('Naomi', 1), ('Dario', 2), ('Jessica', 3), ('Tom', 4)]
+
+for name, id in zip(developers, ids):
+    print(f'Name: {name}')
+    print(f'ID: {id}')
+
+even_numbers = []
+for num in range(21):
+    if num % 2 == 0:
+        even_numbers.append(num)
+
+# List comprehension allows you to create a new list in a single line by combining a loop and condition directly within square brackets.
+even_numbers = [num for num in range(21) if num % 2 == 0]
+
+words = ['tree', 'sky', 'mountain', 'river', 'cloud', 'sun']
+def is_long_word(word):
+    return len(word) > 4
+long_words = list(filter(is_long_word, words)) # ['mountain', 'river', 'cloud']
+
+celsius = [0, 10, 20, 30, 40]
+def to_fahrenheit(temp):
+    return (temp * 9/5) + 32
+fahrenheit = list(map(to_fahrenheit, celsius)) # [32.0, 50.0, 68.0, 86.0, 104.0]
+
+numbers = [5, 10, 15, 20]
+total = sum(numbers) # Result: 50
+
+# lambda function
+# great when you need to use them in higher order functions
+lambda num: num ** 2 # anonymous square function
+
+numbers = [1, 2, 3, 4, 5]
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers)) # [2, 4]
+
+# important to be aware of best practices. not a good practice to assign a lambda function to a variable
+# square = lambda x: x ** 2
+# defeats the purpose of using anonymous functions
+# they are best used as very simple inline function, otherwise a regular function with def is best
+
+
+# DICTIONNARY AND SET
+
+# Keys must be unique and immutable data type. However, the values can be repeated, and they can be of any data type.
+pizza = {
+    'name': 'Margherita Pizza',
+    'price': 8.9,
+    'calories_per_slice': 250,
+    'toppings': ['mozzarella', 'basil']
+}
+
+pizza['name'] # 'Margherita Pizza'
+# To update a value,add the assignment operator, followed by the new value.
+# If the key doesn't exist in the dictionary, a new key-value pair will be created
+pizza['name'] = 'Margherita'
+print(pizza['name']) # 'Margherita'
+
+# dictionary.get(key, default)
+pizza.get('toppings', []) # ['mozzarella', 'basil'] // if toppings didnt exist it would return the empty list instead of an error
+
+pizza.keys() # dict_keys(['name', 'price', 'calories_per_slice', 'toppings'])
+pizza.values() # dict_values(['Margherita Pizza', 8.9, 250, ['mozzarella', 'basil']])
+pizza.items() # dict_items([('name', 'Margherita Pizza'), ('price', 8.9), ('calories_per_slice', 250), ('toppings', ['mozzarella', 'basil'])])
+# pizza.clear()
+# pizza.pop('price', 10) # second arg is needed default value otherwise throws error
+#Python 3.7 and more recent versions, the .popitem() method removes the last inserted item:
+pizza.popitem()
+pizza.update({ 'price': 15, 'total_time': 25 }) # {'name': 'Margherita Pizza', 'price': 15,'calories_per_slice': 250,'total_time': 25 }
+
+#looping over dictionnaries some example
+products = {
+    'Laptop': 990,
+    'Smartphone': 600,
+    'Tablet': 250,
+    'Headphones': 70,
+}
+for price in products.values():
+    print(price)
+
+for product, price in products.items():
+    print(product, price)
+
+# Sets
+# don't store duplicate values. If you try to add a duplicate value to a set, only one of them will be stored.
+# mutable and unordered, cannot use indices or keys to access them. 
+# only contain values of immutable data types like numbers, strings, and tuples. 
+# support mathematical set operations, including union, intersection, difference, and symmetric difference.
+my_set = {1, 2, 3, 4, 5} 
+set() # Set
+{}    # Dictionary
+my_set.add(6) # {1, 2, 3, 4, 5, 6}
+my_set.add(5) # {1, 2, 3, 4, 5, 6}
+my_set.remove(4) # raise an error if not found
+my_set.discard(4)
+my_set.clear()
+
+my_set = {1, 2, 3, 4, 5}
+your_set = {2, 3, 4, 6}
+print(your_set.issubset(my_set)) # False
+print(my_set.issuperset(your_set)) # False
+print(my_set.isdisjoint(your_set)) # False
+my_set | your_set # {1, 2, 3, 4, 5, 6}
+my_set & your_set # {2, 3, 4}
+my_set - your_set # {1, 5}
+my_set ^ your_set # {1, 5, 6}
+my_set -= your_set
+print(my_set) # {1, 5}
+print(5 in my_set) # True
+
+
+# Modules
+
+# import module_name
+import math as m
+m.sqrt(36)
+
+# from math import radians, sin, cos
+
+# CLASSES AND OBJECTS
+
+# a class is the template or the blueprint, and an object is what is created using that template.
+# a class defines what data and behavior the object should have, and an object holds the actual data and uses that behavior.
+# write a class once, and you can make many objects from it, each with different data.
+
+class ClassName:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    classAttribute = "test"
+
+    def sample_method(self):
+        print(self.name.upper())
+
+object1 = ClassName("name", 21)
+object2 = ClassName("namez", 22)
+object1.sample_method() # NAME
+object2.sample_method() # NAMEZ
+
+ClassName.classAttribute # "test"
+object1.classAttribute # "test"
+
+# when you create your own class, Python won't know how to handle things automatically. like calling len(object1) will throw
+# if you want to use those methods you have to redefine them in your class like
+# def __len__(self):
+#       return self.age
+
+
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+person = Person('John Doe', 30)
+print(getattr(person, 'name')) # John Doe
+print(getattr(person, 'age')) # 30
+print(getattr(person, 'city', 'Milano')) # Milano
+
+attr_name = input('Enter the attribute you want to see: ') # if the user types in name, they see John Doe, and if they type in age, they see 30.
+print(getattr(person, attr_name, 'Attribute not found')) # if they type something that doesn't exist in the class like email, they see Attribute not found.
+
+# setattr(object, attribute_name, value)
+# hasattr(object, attribute_name)
+# delattr(object, attribute_name)
